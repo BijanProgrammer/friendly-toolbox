@@ -8,5 +8,17 @@
     },
     "action": {
         "default_popup": "index.html"
-    }
+    },
+    "permissions": ["activeTab", "declarativeContent"],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": [
+                "scripts/global.js",
+                "scripts/tools/snappfood/image-visibler.js",
+                "scripts/tools/youtube/not-interestor.js",
+                "scripts/content.js"
+            ]
+        }
+    ]
 }

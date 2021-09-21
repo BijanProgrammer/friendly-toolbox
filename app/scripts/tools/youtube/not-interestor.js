@@ -11,7 +11,7 @@ const mouseLeaveHandler = card => {
 };
 
 const resetCardsEventListener = () => {
-    $$('#content').forEach(card => {
+    document.querySelectorAll('#content').forEach(card => {
         card.removeEventListener('mouseenter', () => mouseEnterHandler(card));
         card.removeEventListener('mouseleave', () => mouseLeaveHandler(card));
 
@@ -20,7 +20,7 @@ const resetCardsEventListener = () => {
     });
 };
 
-const main = () => {
+const youtubeNotInterestor = () => {
     resetCardsEventListener();
 
     document.addEventListener('keyup', async ({code}) => {
@@ -41,4 +41,4 @@ const main = () => {
     });
 };
 
-main();
+tools['youtubeNotInterestor'] = youtubeNotInterestor;

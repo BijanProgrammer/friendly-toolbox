@@ -118,6 +118,7 @@ body main section ul li h3 {
 }
 body main section ul li p {
   color: var(--color-card-description);
+  line-height: 1.5;
 }
 body footer {
   background-color: var(--color-footer-background);
