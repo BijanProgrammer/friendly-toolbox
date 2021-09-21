@@ -1,0 +1,12 @@
+{
+    "name": "Friendly Toolbox",
+    "description": "Your very own little friendly toolbox as a chrome extension!",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "scripts/background.js"
+    },
+    "action": {
+        "default_popup": "index.html"
+    }
+}
