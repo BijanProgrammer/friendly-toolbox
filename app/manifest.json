@@ -21,5 +21,28 @@
                 "scripts/content.js"
             ]
         }
-    ]
+    ],
+    "commands": {
+        "run-snappfoodImageVisibler": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+1",
+                "mac": "Command+Shift+1"
+            },
+            "description": "Run SnappFood's Image Visibler"
+        },
+        "run-youtubeNotInterestor": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+2",
+                "mac": "Command+Shift+2"
+            },
+            "description": "Run YouTube's Not Interestor"
+        },
+        "run-youtubeSorryButNotSorry": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+3",
+                "mac": "Command+Shift+3"
+            },
+            "description": "Run YouTube's Sorry But Not Sorry"
+        }
+    }
 }
