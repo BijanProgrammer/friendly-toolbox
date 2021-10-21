@@ -17,6 +17,7 @@
                 "scripts/global.js",
                 "scripts/tools/snappfood/image-visibler.js",
                 "scripts/tools/youtube/not-interestor.js",
+                "scripts/tools/youtube/sorry-but-not-sorry.js",
                 "scripts/content.js"
             ]
         }

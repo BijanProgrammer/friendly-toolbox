@@ -59,15 +59,6 @@
     }
 }
 
-html {
-    // ONLY FOR DEVELOPMENT -- START
-    display: grid;
-    place-items: center;
-
-    min-height: 100vh;
-    // ONLY FOR DEVELOPMENT -- END
-}
-
 ul {
     list-style: none;
 }

@@ -19,6 +19,12 @@ const WEBSITES = [
                 description:
                     "Mark the videos that you're not interested to, so they won't appear as suggested videos on YouTube's main page.",
             },
+            {
+                methodName: 'youtubeSorryButNotSorry',
+                title: 'Sorry But Not Sorry',
+                description:
+                    "When google show you the sorry page, you can use this tool to navigate to the video's url.",
+            },
         ],
     },
 ];

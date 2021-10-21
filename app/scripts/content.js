@@ -1,4 +1,4 @@
-chrome.runtime.onMessage.addListener((req, messageSender, sendResponse) => {
+chrome.runtime.onMessage.addListener(async (req, messageSender, sendResponse) => {
     const method = tools[req.methodName];
     const isValidRequest = !!method && typeof method === 'function';
 
@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener((req, messageSender, sendResponse) => {
         return;
     }
 
-    method();
+    await method();
 
     const message = `Method (${req.methodName}) called successfully!`;
     console.info(message);
