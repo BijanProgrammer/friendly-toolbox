@@ -11,6 +11,16 @@ const WEBSITES = [
         ],
     },
     {
+        title: 'Wikipedia',
+        tools: [
+            {
+                methodName: 'wikipediaGiveMeTheNames',
+                title: 'Give Me The Names',
+                description: 'Extracts episode names of the series.',
+            },
+        ],
+    },
+    {
         title: 'YouTube',
         tools: [
             {

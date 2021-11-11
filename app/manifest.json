@@ -16,6 +16,7 @@
             "js": [
                 "scripts/global.js",
                 "scripts/tools/snappfood/image-visibler.js",
+                "scripts/tools/wikipedia/give-me-the-names.js",
                 "scripts/tools/youtube/not-interestor.js",
                 "scripts/tools/youtube/sorry-but-not-sorry.js",
                 "scripts/content.js"
@@ -24,25 +25,24 @@
     ],
     "commands": {
         "run-snappfoodImageVisibler": {
-            "suggested_key": {
-                "default": "Ctrl+Shift+1",
-                "mac": "Command+Shift+1"
-            },
             "description": "Run SnappFood's Image Visibler"
         },
-        "run-youtubeNotInterestor": {
+        "run-wikipediaGiveMeTheNames": {
+            "description": "Run Wikipedia's Give Me The Names",
             "suggested_key": {
-                "default": "Ctrl+Shift+2",
-                "mac": "Command+Shift+2"
-            },
+                "default": "Alt+C",
+                "mac": "Alt+C"
+            }
+        },
+        "run-youtubeNotInterestor": {
             "description": "Run YouTube's Not Interestor"
         },
         "run-youtubeSorryButNotSorry": {
+            "description": "Run YouTube's Sorry But Not Sorry",
             "suggested_key": {
-                "default": "Ctrl+Shift+3",
-                "mac": "Command+Shift+3"
-            },
-            "description": "Run YouTube's Sorry But Not Sorry"
+                "default": "Alt+R",
+                "mac": "Alt+R"
+            }
         }
     }
 }
