@@ -15,6 +15,7 @@
             "matches": ["<all_urls>"],
             "js": [
                 "scripts/global.js",
+                "scripts/tools/general/copy-that.js",
                 "scripts/tools/snappfood/image-visibler.js",
                 "scripts/tools/wikipedia/give-me-the-names.js",
                 "scripts/tools/youtube/not-interestor.js",
@@ -24,14 +25,21 @@
         }
     ],
     "commands": {
+        "run-generalCopyThat": {
+            "description": "Run General's Copy That",
+            "suggested_key": {
+                "default": "Alt+C",
+                "mac": "Alt+C"
+            }
+        },
         "run-snappfoodImageVisibler": {
             "description": "Run SnappFood's Image Visibler"
         },
         "run-wikipediaGiveMeTheNames": {
             "description": "Run Wikipedia's Give Me The Names",
             "suggested_key": {
-                "default": "Alt+C",
-                "mac": "Alt+C"
+                "default": "Alt+W",
+                "mac": "Alt+W"
             }
         },
         "run-youtubeNotInterestor": {

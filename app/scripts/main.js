@@ -30,6 +30,8 @@ const addEventListeners = () => {
 
     items.forEach(item => {
         item.addEventListener('click', () => {
+            window.close();
+
             chrome.tabs.query({active: true, currentWindow: true}, tabs => {
                 console.log('tabs', tabs);
 

@@ -1,5 +1,15 @@
 const WEBSITES = [
     {
+        title: 'General',
+        tools: [
+            {
+                methodName: 'generalCopyThat',
+                title: 'Copy That',
+                description: "Hover on any element in the page and click to copy it's text.",
+            },
+        ],
+    },
+    {
         title: 'SnappFood',
         tools: [
             {
