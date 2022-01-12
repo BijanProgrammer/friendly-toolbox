@@ -27,7 +27,7 @@ const clickHandler = async e => {
     currentlyActiveElementOriginalBoxShadow = null;
 
     document.removeEventListener('mousemove', mouseMoveHandler);
-    document.removeEventListener('click', clickHandler);
+    document.removeEventListener('click', clickHandler, {capture: true});
 };
 
 const generalCopyThat = () => {
