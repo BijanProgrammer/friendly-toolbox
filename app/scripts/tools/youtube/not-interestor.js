@@ -36,7 +36,7 @@ const youtubeNotInterestor = () => {
 
         await new Promise(resolve => setTimeout(() => resolve(), 100));
 
-        const notInterestedButton = document.querySelector('#items > ytd-menu-service-item-renderer:nth-child(4)');
+        const notInterestedButton = document.querySelector('#items > ytd-menu-service-item-renderer:nth-child(5)');
         notInterestedButton.click();
     });
 };
