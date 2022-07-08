@@ -19,9 +19,28 @@ const clickHandler = async e => {
     e.stopPropagation();
 
     document.body.focus();
-    await navigator.clipboard.writeText(currentlyActiveElement.value || currentlyActiveElement.innerText);
 
-    if (currentlyActiveElement) currentlyActiveElement.style.boxShadow = currentlyActiveElementOriginalBoxShadow;
+    try {
+        const text = currentlyActiveElement.value || currentlyActiveElement.innerText;
+
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(text);
+        } else {
+            const textarea = document.createElement('textarea');
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            textarea.textContent = text;
+
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+
+        currentlyActiveElement.style.boxShadow = currentlyActiveElementOriginalBoxShadow;
+    } catch (e) {
+        console.error(e);
+    }
 
     currentlyActiveElement = null;
     currentlyActiveElementOriginalBoxShadow = null;
