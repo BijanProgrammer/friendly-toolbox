@@ -1,1 +1,2 @@
 const tools = {};
+const autoActivatedTools = [];

@@ -18,6 +18,7 @@
                 "scripts/tools/general/copy-that.js",
                 "scripts/tools/snappfood/image-visibler.js",
                 "scripts/tools/wikipedia/give-me-the-names.js",
+                "scripts/tools/youtube/as-fast-as-needed.js",
                 "scripts/tools/youtube/not-interestor.js",
                 "scripts/tools/youtube/sorry-but-not-sorry.js",
                 "scripts/content.js"
