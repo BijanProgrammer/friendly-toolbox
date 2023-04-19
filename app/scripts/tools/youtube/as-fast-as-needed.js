@@ -1,15 +1,14 @@
+const OFFSETS = {
+    ArrowUp: 1,
+    ArrowDown: -1,
+};
+
 const documentKeyUpHandler = e => {
-    if (!e.ctrlKey) return;
+    if (!e.ctrlKey || !Object.keys(OFFSETS).includes(e.code)) return;
 
     const video = document.querySelector('#movie_player video');
-    let playbackRate = video.playbackRate;
-
-    if (e.code === 'ArrowUp') playbackRate++;
-    else if (e.code === 'ArrowDown') playbackRate--;
-    else if (e.code === 'ArrowRight') playbackRate += 0.5;
-    else if (e.code === 'ArrowLeft') playbackRate -= 0.5;
-
-    video.playbackRate = Math.max(0.5, playbackRate);
+    const offset = OFFSETS[e.code] / (e.altKey ? 2 : 1);
+    video.playbackRate = Math.max(0.5, Math.min(video.playbackRate + offset, 3));
 
     console.info(`Playback rate changed to ${video.playbackRate}`);
 };
