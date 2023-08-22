@@ -7,6 +7,11 @@ const WEBSITES = [
                 title: 'Copy That',
                 description: "Hover on any element in the page and click to copy it's text.",
             },
+            {
+                methodName: 'generalSmoothScroll',
+                title: 'Smooth Scroll',
+                description: 'Smoothly scrolls to the bottom of the page.',
+            },
         ],
     },
     {
