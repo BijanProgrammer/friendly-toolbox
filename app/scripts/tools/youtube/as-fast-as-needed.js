@@ -21,14 +21,14 @@ const getVideoElement = async () => {
     return await waitForElementToExist('#movie_player video');
 };
 
-const changePlaybackRate = async playbackRate => {
+const changePlaybackRate = async (playbackRate) => {
     const video = await getVideoElement();
     video.playbackRate = playbackRate;
 
     console.info(`Playback rate changed to ${playbackRate}`);
 };
 
-const initializePlaybackRate = async element => {
+const initializePlaybackRate = async (element) => {
     const channelName = element.innerText;
 
     if (CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE.has(channelName)) {
@@ -38,7 +38,7 @@ const initializePlaybackRate = async element => {
     }
 };
 
-const documentKeyUpHandler = async e => {
+const documentKeyUpHandler = async (e) => {
     if (!e.ctrlKey || !Object.keys(OFFSETS).includes(e.code)) return;
 
     const video = await getVideoElement();
@@ -48,8 +48,8 @@ const documentKeyUpHandler = async e => {
     await changePlaybackRate(playbackRate);
 };
 
-const waitForElementToExist = async selector => {
-    return new Promise(resolve => {
+const waitForElementToExist = async (selector) => {
+    return new Promise((resolve) => {
         let element = document.querySelector(selector);
 
         if (element) {
@@ -81,7 +81,7 @@ const initialize = async () => {
 };
 
 const reInitializeIfNeeded = async () => {
-    const observer = new MutationObserver(async records => {
+    const observer = new MutationObserver(async (records) => {
         for (const record of records) {
             if (record.attributeName === 'src' && !!record.target.src) {
                 await initialize();

@@ -17,6 +17,6 @@ chrome.runtime.onMessage.addListener(async (req, messageSender, sendResponse) =>
     sendResponse({message});
 });
 
-autoActivatedTools.forEach(async method => {
+autoActivatedTools.forEach(async (method) => {
     await method();
 });

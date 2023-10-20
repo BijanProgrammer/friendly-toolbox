@@ -1,7 +1,7 @@
 let currentlyActiveElement = null;
 let currentlyActiveElementOriginalBoxShadow = null;
 
-const mouseMoveHandler = e => {
+const mouseMoveHandler = (e) => {
     e.stopPropagation();
 
     if (!e?.target?.style || currentlyActiveElement === e.target) return;
@@ -14,7 +14,7 @@ const mouseMoveHandler = e => {
     currentlyActiveElement.style.boxShadow = 'inset 0 0 0 2px red';
 };
 
-const clickHandler = async e => {
+const clickHandler = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 

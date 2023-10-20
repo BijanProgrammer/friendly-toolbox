@@ -28,16 +28,16 @@ const createWebsites = () => {
 const addEventListeners = () => {
     const items = document.querySelectorAll('main > section > ul > li');
 
-    items.forEach(item => {
+    items.forEach((item) => {
         item.addEventListener('click', () => {
             window.close();
 
-            chrome.tabs.query({active: true, currentWindow: true}, tabs => {
+            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
                 console.log('tabs', tabs);
 
                 const methodName = item.getAttribute('data-method-name');
 
-                chrome.tabs.sendMessage(tabs[0].id, {methodName}, response => {
+                chrome.tabs.sendMessage(tabs[0].id, {methodName}, (response) => {
                     console.log('response', response);
                 });
             });

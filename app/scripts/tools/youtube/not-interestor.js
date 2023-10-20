@@ -1,17 +1,17 @@
 let currentHoveredElement = null;
 
-const mouseEnterHandler = card => {
+const mouseEnterHandler = (card) => {
     currentHoveredElement = card;
     card.style.outline = '2px solid red';
 };
 
-const mouseLeaveHandler = card => {
+const mouseLeaveHandler = (card) => {
     currentHoveredElement = null;
     card.style.outline = '';
 };
 
 const resetCardsEventListener = () => {
-    document.querySelectorAll('#content').forEach(card => {
+    document.querySelectorAll('#content').forEach((card) => {
         card.removeEventListener('mouseenter', () => mouseEnterHandler(card));
         card.removeEventListener('mouseleave', () => mouseLeaveHandler(card));
 
@@ -34,7 +34,7 @@ const youtubeNotInterestor = () => {
         const menuButton = currentHoveredElement.querySelector('ytd-menu-renderer > yt-icon-button > button');
         menuButton.click();
 
-        await new Promise(resolve => setTimeout(() => resolve(), 100));
+        await new Promise((resolve) => setTimeout(() => resolve(), 100));
 
         const notInterestedButton = document.querySelector('#items > ytd-menu-service-item-renderer:nth-child(5)');
         notInterestedButton.click();
