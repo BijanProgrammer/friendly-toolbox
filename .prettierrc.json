@@ -5,5 +5,14 @@
     "singleQuote": true,
     "trailingComma": "es5",
     "bracketSpacing": false,
-    "arrowParens": "avoid"
+    "arrowParens": "always",
+    "endOfLine": "auto",
+    "overrides": [
+        {
+            "files": ["*.css", "*.scss"],
+            "options": {
+                "singleQuote": false
+            }
+        }
+    ]
 }
