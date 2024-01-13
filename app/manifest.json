@@ -17,6 +17,7 @@
                 "scripts/global.js",
                 "scripts/tools/general/copy-that.js",
                 "scripts/tools/general/smooth-scroll.js",
+                "scripts/tools/ponisha/wordpless.js",
                 "scripts/tools/snappfood/image-visibler.js",
                 "scripts/tools/wikipedia/give-me-the-names.js",
                 "scripts/tools/youtube/as-fast-as-needed.js",
@@ -24,6 +25,12 @@
                 "scripts/tools/youtube/sorry-but-not-sorry.js",
                 "scripts/content.js"
             ]
+        },
+        {
+            "matches": ["*://*.ponisha.ir/*"],
+            "js": ["scripts/tools/ponisha/the-more-the-merrier.js"],
+            "run_at": "document_start",
+            "world": "MAIN"
         }
     ],
     "commands": {
