@@ -24,20 +24,21 @@ const youtubeNotInterestor = () => {
     resetCardsEventListener();
 
     document.addEventListener('keyup', async ({code}) => {
-        if (code === 'F12') {
+        if (code === 'F9') {
             resetCardsEventListener();
             return;
         }
 
         if (code !== 'KeyD' || !currentHoveredElement) return;
 
-        const menuButton = currentHoveredElement.querySelector('ytd-menu-renderer > yt-icon-button > button');
+        const menuButton = currentHoveredElement.querySelector('[aria-label="Action menu"]');
         menuButton.click();
 
         await new Promise((resolve) => setTimeout(() => resolve(), 100));
 
-        const notInterestedButton = document.querySelector('#items > ytd-menu-service-item-renderer:nth-child(5)');
-        notInterestedButton.click();
+        const menuItems = [...document.querySelectorAll('#items > ytd-menu-service-item-renderer')];
+        const notInterestedButton = menuItems.find((x) => x.textContent.toLowerCase().includes('not interested'));
+        notInterestedButton?.click();
     });
 };
 
