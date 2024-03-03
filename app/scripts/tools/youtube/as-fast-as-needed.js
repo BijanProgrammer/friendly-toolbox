@@ -15,6 +15,7 @@ const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE = new Set([
     'SooriLand',
     'CircleToonsHD',
     'CinemaStix',
+    'Comedy Central',
 ]);
 
 const getVideoElement = async () => {
