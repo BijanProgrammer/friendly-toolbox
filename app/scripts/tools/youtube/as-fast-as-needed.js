@@ -16,6 +16,14 @@ const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE = new Set([
     'CircleToonsHD',
     'CinemaStix',
     'Comedy Central',
+    'Comedy Central Stand-Up',
+    "Don't Tell Comedy",
+    'Vsauce',
+]);
+
+const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE = new Map([
+    ['Fireship', 1.5],
+    ['Beyond Fireship', 1.5],
 ]);
 
 const getVideoElement = async () => {
@@ -34,6 +42,8 @@ const initializePlaybackRate = async (element) => {
 
     if (CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE.has(channelName)) {
         await changePlaybackRate(1);
+    } else if (CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.has(channelName)) {
+        await changePlaybackRate(CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.get(channelName));
     } else {
         await changePlaybackRate(2);
     }
