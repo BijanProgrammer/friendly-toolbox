@@ -9,7 +9,8 @@
     "action": {
         "default_popup": "index.html"
     },
-    "permissions": ["activeTab", "declarativeContent"],
+    "permissions": ["activeTab", "tabs", "declarativeContent", "scripting"],
+    "host_permissions": ["*://*.google.com/*"],
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
@@ -31,11 +32,6 @@
             "js": ["scripts/tools/ponisha/the-more-the-merrier.js"],
             "run_at": "document_start",
             "world": "MAIN"
-        },
-        {
-            "matches": ["*://*.google.com/*"],
-            "js": ["scripts/tools/autorun/go-duck-go.js"],
-            "run_at": "document_end"
         }
     ],
     "commands": {
