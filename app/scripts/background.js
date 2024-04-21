@@ -13,6 +13,10 @@ chrome.commands.onCommand.addListener((command) => {
 });
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+    goDuckGo(tabId, changeInfo, tab).then();
+});
+
+async function goDuckGo(tabId, changeInfo, tab) {
     if (!tab.incognito || !changeInfo.url || !changeInfo.url.startsWith('https://www.google.com/sorry')) {
         return;
     }
@@ -21,14 +25,12 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     const query = new URL(originalUrl).searchParams.get('q');
     const updatedUrl = `https://duckduckgo.com/?q=${query}`;
 
-    chrome.scripting
-        .executeScript({
-            target: {tabId},
-            func: (updatedUrl) => {
-                location.href = updatedUrl;
-            },
-            args: [updatedUrl],
-            injectImmediately: true,
-        })
-        .then();
-});
+    await chrome.scripting.executeScript({
+        target: {tabId},
+        func: (updatedUrl) => {
+            location.href = updatedUrl;
+        },
+        args: [updatedUrl],
+        injectImmediately: true,
+    });
+}
