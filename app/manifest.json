@@ -25,7 +25,8 @@
                 "scripts/tools/youtube/not-interestor.js",
                 "scripts/tools/youtube/sorry-but-not-sorry.js",
                 "scripts/content.js"
-            ]
+            ],
+            "css": ["styles/css/visited-already.css"]
         },
         {
             "matches": ["*://*.ponisha.ir/*"],
