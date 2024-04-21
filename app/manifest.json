@@ -33,6 +33,14 @@
             "js": ["scripts/tools/ponisha/the-more-the-merrier.js"],
             "run_at": "document_start",
             "world": "MAIN"
+        },
+        {
+            "matches": [
+                "*://*.google.com/search/*",
+                "*://*.ponisha.ir/dashboard/find-projects/*",
+                "*://*.parscoders.com/project/*"
+            ],
+            "css": ["styles/css/visited-already.css"]
         }
     ],
     "commands": {

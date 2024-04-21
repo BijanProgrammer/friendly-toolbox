@@ -1,3 +1,8 @@
-a:visited {
-    color: hsl(10deg 100% 70%) !important;
+#search /* google.com */,
+#__next > .mainlayout-container > .main-wrapper > div > div > .MuiBox-root > div > div.no-ssr /* ponisha.ir */ ,
+.project-list-item /* parscoders.com */ {
+    a:visited,
+    a:visited * {
+        color: hsl(10deg 100% 70%) !important;
+    }
 }
