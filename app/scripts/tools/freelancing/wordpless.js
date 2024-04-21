@@ -1,5 +1,9 @@
-const PROJECTS_SELECTOR =
-    '#__next > .mainlayout-container > .main-wrapper > div > div > .MuiBox-root > div > div.no-ssr';
+const Origins = {PONISHA: 'ponisha', PARSCODERS: 'parscoders'};
+
+const SELECTORS = {
+    [Origins.PONISHA]: '#__next > .mainlayout-container > .main-wrapper > div > div > .MuiBox-root > div > div.no-ssr',
+    [Origins.PARSCODERS]: '.project-list-item',
+};
 
 const BLACKLIST = [
     'wordpress',
@@ -26,9 +30,9 @@ const isWordpless = (project) => {
     return BLACKLIST.some((item) => text.includes(item));
 };
 
-const observeProjects = () => {
+const observeProjects = (origin) => {
     const observer = new MutationObserver(() => {
-        const projects = [...document.querySelectorAll(PROJECTS_SELECTOR)];
+        const projects = [...document.querySelectorAll(SELECTORS[origin])];
         const wordplessProjects = projects.filter(isWordpless);
 
         wordplessProjects.forEach((project) => {
@@ -43,9 +47,11 @@ const observeProjects = () => {
 };
 
 const wordpless = async () => {
-    if (!location.origin.includes('ponisha')) return;
-
-    observeProjects();
+    Object.values(Origins).forEach((value) => {
+        if (location.origin.includes(value)) {
+            observeProjects(value);
+        }
+    });
 };
 
 autoActivatedTools.push(wordpless);
