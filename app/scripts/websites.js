@@ -15,6 +15,16 @@ const WEBSITES = [
         ],
     },
     {
+        title: 'LinkedIn',
+        tools: [
+            {
+                methodName: 'linkedinConnector',
+                title: 'Connector',
+                description: 'Automatically sends connection request to suggested people on the page.',
+            },
+        ],
+    },
+    {
         title: 'SnappFood',
         tools: [
             {

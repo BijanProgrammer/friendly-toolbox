@@ -19,6 +19,7 @@
                 "scripts/tools/general/copy-that.js",
                 "scripts/tools/general/smooth-scroll.js",
                 "scripts/tools/freelancing/wordpless.js",
+                "scripts/tools/linkedin/connector.js",
                 "scripts/tools/snappfood/image-visibler.js",
                 "scripts/tools/wikipedia/give-me-the-names.js",
                 "scripts/tools/youtube/as-fast-as-needed.js",
@@ -57,6 +58,9 @@
                 "default": "Alt+S",
                 "mac": "Alt+S"
             }
+        },
+        "run-linkedinConnector": {
+            "description": "Run LinkedIn's Connector"
         },
         "run-snappfoodImageVisibler": {
             "description": "Run SnappFood's Image Visibler"
