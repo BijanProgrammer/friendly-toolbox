@@ -4,7 +4,7 @@
 
     const WORDLIST = ['front', 'web', 'develop', 'ui', 'ux'];
 
-    const INTERVAL = 250;
+    const INTERVAL = 750;
 
     const sent = new Set();
     const queue = [];
@@ -16,16 +16,18 @@
     };
 
     const observePeople = () => {
-        const observer = new MutationObserver(() => {
-            const people = [...document.querySelectorAll(PERSON_SELECTOR)];
-            const desiredPeople = people.filter(isPersonOfInterest);
+        const observer = new MutationObserver((records) => {
+            records.forEach((record) => {
+                const people = [...record.addedNodes].filter((node) => node.matches?.(PERSON_SELECTOR));
+                const desiredPeople = people.filter(isPersonOfInterest);
 
-            desiredPeople.forEach((person) => {
-                if (sent.has(person)) {
-                    return;
-                }
+                desiredPeople.forEach((person) => {
+                    if (sent.has(person)) {
+                        return;
+                    }
 
-                queue.unshift(person);
+                    queue.unshift(person);
+                });
             });
         });
 
