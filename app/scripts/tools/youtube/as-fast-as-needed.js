@@ -19,6 +19,11 @@ const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE = new Set([
     'Comedy Central Stand-Up',
     "Don't Tell Comedy",
     'Vsauce',
+    'Sony Pictures Entertainment',
+    'Rotten Tomatoes Trailers',
+    'AfroSenju XL',
+    'Chris and Jack',
+    'Jäger Himself Too',
 ]);
 
 const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE = new Map([
