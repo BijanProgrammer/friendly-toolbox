@@ -3,15 +3,32 @@ const OFFSETS = {
     ArrowDown: -1,
 };
 
+const TEASER_TRAILER_CHANNELS = new Set([
+    'A24',
+    '20th Century Studios',
+    'Lionsgate Movies',
+    'Sony Pictures Entertainment',
+    'Apple TV',
+    'Paramount Movies',
+    'Prime Video',
+    'Disney Plus',
+    'Netflix',
+    'Rotten Tomatoes Trailers',
+    'ONE Media Coverage',
+    'Amazon MGM Studios',
+    'SearchlightPictures',
+    'STXfilms',
+    'MUBI',
+]);
+
 const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE = new Set([
+    ...TEASER_TRAILER_CHANNELS,
     'Viva La Dirt League',
     "Let's Game It Out",
     'Basically Homeless',
-    'A24',
     '12th Hour',
     'Hyperplexed',
     'CarbotAnimations',
-    '20th Century Studios',
     'SooriLand',
     'CircleToonsHD',
     'CinemaStix',
@@ -19,11 +36,10 @@ const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE = new Set([
     'Comedy Central Stand-Up',
     "Don't Tell Comedy",
     'Vsauce',
-    'Sony Pictures Entertainment',
-    'Rotten Tomatoes Trailers',
     'AfroSenju XL',
     'Chris and Jack',
     'Jäger Himself Too',
+    'Jynxzi',
 ]);
 
 const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE = new Map([
