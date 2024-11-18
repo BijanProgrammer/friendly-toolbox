@@ -6,6 +6,7 @@ const OFFSETS = {
 const TEASER_TRAILER_CHANNELS = new Set([
     'A24',
     '20th Century Studios',
+    'Warner Bros. Pictures',
     'Lionsgate Movies',
     'Sony Pictures Entertainment',
     'Apple TV',
@@ -14,11 +15,15 @@ const TEASER_TRAILER_CHANNELS = new Set([
     'Disney Plus',
     'Netflix',
     'Rotten Tomatoes Trailers',
+    'Rotten Tomatoes Indie',
+    'Rotten Tomatoes Classic Trailers',
     'ONE Media Coverage',
     'Amazon MGM Studios',
     'SearchlightPictures',
     'STXfilms',
     'MUBI',
+    'Movie Trailers Source',
+    'Screen Media Films',
 ]);
 
 const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE = new Set([
