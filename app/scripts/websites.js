@@ -62,4 +62,14 @@ const WEBSITES = [
             },
         ],
     },
+    {
+        title: 'Gov',
+        tools: [
+            {
+                methodName: 'govWorkHard',
+                title: 'Work Hard',
+                description: 'Sums up the working days in tamin.ir history.',
+            },
+        ],
+    },
 ];
