@@ -19,6 +19,7 @@
                 "scripts/tools/general/copy-that.js",
                 "scripts/tools/general/smooth-scroll.js",
                 "scripts/tools/gov/work-hard.js",
+                "scripts/tools/gpt/flip.js",
                 "scripts/tools/freelancing/wordpless.js",
                 "scripts/tools/linkedin/connector.js",
                 "scripts/tools/snappfood/image-visibler.js",
@@ -60,21 +61,12 @@
                 "mac": "Alt+S"
             }
         },
-        "run-linkedinConnector": {
-            "description": "Run LinkedIn's Connector"
-        },
-        "run-snappfoodImageVisibler": {
-            "description": "Run SnappFood's Image Visibler"
-        },
-        "run-wikipediaGiveMeTheNames": {
-            "description": "Run Wikipedia's Give Me The Names",
+        "run-gptFlip": {
+            "description": "Run GPT's Flip",
             "suggested_key": {
-                "default": "Alt+W",
-                "mac": "Alt+W"
+                "default": "Alt+F",
+                "mac": "Alt+F"
             }
-        },
-        "run-youtubeNotInterestor": {
-            "description": "Run YouTube's Not Interestor"
         },
         "run-youtubeSorryButNotSorry": {
             "description": "Run YouTube's Sorry But Not Sorry",

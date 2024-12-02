@@ -15,6 +15,16 @@ const WEBSITES = [
         ],
     },
     {
+        title: 'GPT',
+        tools: [
+            {
+                methodName: 'gptFlip',
+                title: 'Flip',
+                description: 'Flips the direction of the content element in ChatGPT.',
+            },
+        ],
+    },
+    {
         title: 'LinkedIn',
         tools: [
             {
