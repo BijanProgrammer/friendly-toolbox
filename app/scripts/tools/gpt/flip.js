@@ -1,16 +1,18 @@
 const flipContentElement = () => {
-    const content = document.querySelector('#thread [slot="content"]');
+    const messages = document.querySelectorAll('[data-message-id]');
 
-    if (!content) {
-        console.log('There is no content element in this page.');
+    if (!messages.length) {
+        console.log('There is no message in this page.');
         return;
     }
 
-    if (!content.style.direction || content.style.direction === 'ltr') {
-        content.style.direction = 'rtl';
-    } else {
-        content.style.direction = 'ltr';
-    }
+    messages.forEach((message) => {
+        if (!message.style.direction || message.style.direction === 'ltr') {
+            message.style.direction = 'rtl';
+        } else {
+            message.style.direction = 'ltr';
+        }
+    });
 };
 
 const gptFlip = () => {
