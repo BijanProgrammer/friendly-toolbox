@@ -50,6 +50,7 @@ const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE = new Set([
 const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE = new Map([
     ['Fireship', 1.5],
     ['Beyond Fireship', 1.5],
+    ['Juxtopposed', 1.5],
 ]);
 
 const getVideoElement = async () => {
