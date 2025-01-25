@@ -27,6 +27,7 @@
                 "scripts/tools/youtube/as-fast-as-needed.js",
                 "scripts/tools/youtube/not-interestor.js",
                 "scripts/tools/youtube/sorry-but-not-sorry.js",
+                "scripts/tools/telewebion/as-fast-as-needed.js",
                 "scripts/content.js"
             ],
             "css": ["styles/css/visited-already.css"]

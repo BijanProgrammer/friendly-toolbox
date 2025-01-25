@@ -4,58 +4,10 @@
         ArrowDown: -1,
     };
 
-    const TEASER_TRAILER_CHANNELS = new Set([
-        'A24',
-        '20th Century Studios',
-        'Warner Bros. Pictures',
-        'Lionsgate Movies',
-        'Sony Pictures Entertainment',
-        'Apple TV',
-        'Paramount Movies',
-        'Prime Video',
-        'Disney Plus',
-        'Netflix',
-        'Rotten Tomatoes Trailers',
-        'Rotten Tomatoes Indie',
-        'Rotten Tomatoes Classic Trailers',
-        'ONE Media Coverage',
-        'Amazon MGM Studios',
-        'SearchlightPictures',
-        'STXfilms',
-        'MUBI',
-        'Movie Trailers Source',
-        'Screen Media Films',
-    ]);
-
-    const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE = new Set([
-        ...TEASER_TRAILER_CHANNELS,
-        'Viva La Dirt League',
-        "Let's Game It Out",
-        'Basically Homeless',
-        '12th Hour',
-        'Hyperplexed',
-        'CarbotAnimations',
-        'SooriLand',
-        'CircleToonsHD',
-        'CinemaStix',
-        'Comedy Central',
-        'Comedy Central Stand-Up',
-        "Don't Tell Comedy",
-        'Vsauce',
-        'AfroSenju XL',
-        'Chris and Jack',
-        'Jäger Himself Too',
-        'Jynxzi',
-    ]);
-
-    const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE = new Map([
-        ['Fireship', 1.5],
-        ['Beyond Fireship', 1.5],
-        ['Juxtopposed', 1.5],
-    ]);
+    const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE = new Map([['پاورقی', 2]]);
 
     const getVideoElement = async () => {
-        return await waitForElementToExist('#movie_player video');
+        return await waitForElementToExist('#video');
     };
 
     const changePlaybackRate = async (playbackRate) => {
@@ -68,13 +20,18 @@
     const initializePlaybackRate = async (element) => {
         const channelName = element.innerText;
 
-        if (CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE.has(channelName)) {
-            await changePlaybackRate(1);
-        } else if (CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.has(channelName)) {
+        if (CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.has(channelName)) {
             await changePlaybackRate(CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.get(channelName));
         } else {
-            await changePlaybackRate(2);
+            await changePlaybackRate(1);
         }
+    };
+
+    const initializeCurrentTime = async () => {
+        const video = await getVideoElement();
+        video.currentTime = Math.max(video.currentTime, 70);
+
+        console.info(`Current time changed to ${video.currentTime}`);
     };
 
     const documentKeyUpHandler = async (e) => {
@@ -111,12 +68,29 @@
         });
     };
 
+    const skipAds = async () => {
+        let skipButton = await waitForElementToExist('#twp-vast-skip');
+
+        do {
+            console.log('Clicking on skip button...');
+
+            skipButton.click();
+
+            await new Promise((resolve) => setTimeout(resolve, 500));
+
+            skipButton = document.querySelector('#twp-vast-skip');
+        } while (skipButton);
+
+        console.log('Skipped ads');
+    };
+
     const initialize = async () => {
         document.removeEventListener('keyup', documentKeyUpHandler);
         document.addEventListener('keyup', documentKeyUpHandler);
 
-        const channelNameElement = await waitForElementToExist('ytd-video-owner-renderer #channel-name');
+        const channelNameElement = await waitForElementToExist('[data-gtm="clip-detail-channel"]');
         await initializePlaybackRate(channelNameElement);
+        await initializeCurrentTime(channelNameElement);
     };
 
     const reInitializeIfNeeded = async () => {
@@ -135,7 +109,14 @@
     };
 
     const asFastAsNeeded = async () => {
-        if (!location.origin.includes('youtube')) return;
+        if (!location.origin.includes('telewebion')) return;
+
+        const video = await getVideoElement();
+        if (video.duration < 300) {
+            video.isMuted = true;
+            await skipAds();
+            video.isMuted = false;
+        }
 
         await initialize();
         await reInitializeIfNeeded();
