@@ -1,4 +1,4 @@
-// VARIABLES
+/* VARIABLES */
 :root {
   --base-hue: 210;
 
@@ -28,7 +28,7 @@
   --color-card-description: hsl(var(--base-hue), 18%, 74%);
 }
 
-// RESET
+/* RESET */
 *,
 *::before,
 *::after {
@@ -63,7 +63,7 @@ ul {
   list-style: none;
 }
 
-// MAIN
+/* MAIN */
 body {
   background-color: var(--color-body-background);
   color: var(--color-body-foreground);
