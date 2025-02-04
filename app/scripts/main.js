@@ -1,53 +1,55 @@
 const createWebsites = () => {
-    const websiteTemplate = document.querySelector('#website-template');
-    const toolTemplate = document.querySelector('#tool-template');
+  const websiteTemplate = document.querySelector("#website-template");
+  const toolTemplate = document.querySelector("#tool-template");
 
-    const mainElement = document.querySelector('main');
+  const mainElement = document.querySelector("main");
 
-    for (const website of WEBSITES) {
-        const websiteElement = websiteTemplate.content.cloneNode(true);
+  for (const website of WEBSITES) {
+    const websiteElement = websiteTemplate.content.cloneNode(true);
 
-        websiteElement.querySelector('h2').textContent = website.title;
+    websiteElement.querySelector("h2").textContent = website.title;
 
-        const toolsListElement = websiteElement.querySelector('ul');
+    const toolsListElement = websiteElement.querySelector("ul");
 
-        for (const tool of website.tools) {
-            const toolElement = toolTemplate.content.cloneNode(true);
+    for (const tool of website.tools) {
+      const toolElement = toolTemplate.content.cloneNode(true);
 
-            toolElement.querySelector('li').setAttribute('data-method-name', tool.methodName);
-            toolElement.querySelector('h3').textContent = tool.title;
-            toolElement.querySelector('p').textContent = tool.description;
+      toolElement
+        .querySelector("li")
+        .setAttribute("data-method-name", tool.methodName);
+      toolElement.querySelector("h3").textContent = tool.title;
+      toolElement.querySelector("p").textContent = tool.description;
 
-            toolsListElement.appendChild(toolElement);
-        }
-
-        mainElement.appendChild(websiteElement);
+      toolsListElement.appendChild(toolElement);
     }
+
+    mainElement.appendChild(websiteElement);
+  }
 };
 
 const addEventListeners = () => {
-    const items = document.querySelectorAll('main > section > ul > li');
+  const items = document.querySelectorAll("main > section > ul > li");
 
-    items.forEach((item) => {
-        item.addEventListener('click', () => {
-            window.close();
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      window.close();
 
-            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-                console.log('tabs', tabs);
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        console.log("tabs", tabs);
 
-                const methodName = item.getAttribute('data-method-name');
+        const methodName = item.getAttribute("data-method-name");
 
-                chrome.tabs.sendMessage(tabs[0].id, {methodName}, (response) => {
-                    console.log('response', response);
-                });
-            });
+        chrome.tabs.sendMessage(tabs[0].id, { methodName }, (response) => {
+          console.log("response", response);
         });
+      });
     });
+  });
 };
 
 const main = () => {
-    createWebsites();
-    addEventListeners();
+  createWebsites();
+  addEventListeners();
 };
 
 main();

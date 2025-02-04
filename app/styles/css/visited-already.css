@@ -1,7 +1,24 @@
 #search a:visited,
 #search a:visited *,
-#__next > .mainlayout-container > .main-wrapper > div > div > .MuiBox-root > div > div.no-ssr a:visited,
-#__next > .mainlayout-container > .main-wrapper > div > div > .MuiBox-root > div > div.no-ssr a:visited *,
+#__next
+  > .mainlayout-container
+  > .main-wrapper
+  > div
+  > div
+  > .MuiBox-root
+  > div
+  > div.no-ssr
+  a:visited,
+#__next
+  > .mainlayout-container
+  > .main-wrapper
+  > div
+  > div
+  > .MuiBox-root
+  > div
+  > div.no-ssr
+  a:visited
+  *,
 .project-list-item a:visited,
 .project-list-item a:visited * {
   color: #ff8066 !important;
