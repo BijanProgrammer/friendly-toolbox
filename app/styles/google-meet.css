@@ -1,0 +1,61 @@
+/*
+  In chat panel, font-size is based on rem;
+  Here I'll keep the value but change the unit to em;
+  For example 0.8125rem changes to 0.8125em.
+  This way I can keep ratio the same and control scale freely.
+ */
+
+[data-panel-id="2"] /* chat panel */ {
+  /* ft means friendly toolbox */
+  --ft-font-family: "IRANSansX", system-ui;
+
+  font-size: 1.25rem; /* Only change this */
+
+  > :nth-child(2) /* chat panel's main section */ {
+    > div /* redundant div */ {
+      > div:nth-child(1) /* sent messages */ {
+        > :nth-child(3) /* messages parent */ {
+          > div /* message */ {
+            font-family: var(--ft-font-family);
+
+            > :nth-child(1) /* (name + time)'s parent */ {
+              > :nth-child(1) /* name */ {
+                font-size: 0.8125em;
+              }
+
+              > :nth-child(2) /* time */ {
+                font-size: 0.75em;
+              }
+            }
+
+            > :nth-child(2) /* content's parent */ {
+              > div > div > div /* redundant divs */ {
+                font-family: inherit;
+                font-size: 0.8125em;
+
+                line-height: 1.5;
+
+                [dir="rtl" i] {
+                  display: block;
+
+                  text-align: right;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      > div:nth-child(2) /* new message */ {
+        textarea {
+          resize: vertical;
+
+          font-family: var(--ft-font-family);
+          font-size: 0.8em;
+
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}

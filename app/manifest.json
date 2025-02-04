@@ -44,6 +44,10 @@
         "*://*.parscoders.com/project/*"
       ],
       "css": ["styles/visited-already.css"]
+    },
+    {
+      "matches": ["*://meet.google.com/*"],
+      "css": ["styles/google-meet.css"]
     }
   ],
   "commands": {
