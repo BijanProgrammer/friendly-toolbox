@@ -74,7 +74,7 @@
       CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.has(channelName)
     ) {
       await changePlaybackRate(
-        CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.get(channelName)
+        CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.get(channelName),
       );
     } else {
       await changePlaybackRate(2);
@@ -88,7 +88,7 @@
     const offset = OFFSETS[e.code] / (e.altKey ? 2 : 1);
     const playbackRate = Math.max(
       0.5,
-      Math.min(video.playbackRate + offset, 3)
+      Math.min(video.playbackRate + offset, 3),
     );
 
     await changePlaybackRate(playbackRate);
@@ -123,7 +123,7 @@
     document.addEventListener("keyup", documentKeyUpHandler);
 
     const channelNameElement = await waitForElementToExist(
-      "ytd-video-owner-renderer #channel-name"
+      "ytd-video-owner-renderer #channel-name",
     );
     await initializePlaybackRate(channelNameElement);
   };

@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener(
     const message = `Method (${req.methodName}) called successfully!`;
     console.info(message);
     sendResponse({ message });
-  }
+  },
 );
 
 autoActivatedTools.forEach(async (method) => {

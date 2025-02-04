@@ -22,7 +22,7 @@ const scrollSmoothly = () => {
 
     window.scrollTo(
       0,
-      startPosition + ((endPosition - startPosition) * timePassed) / duration
+      startPosition + ((endPosition - startPosition) * timePassed) / duration,
     );
 
     if (timePassed < duration) {

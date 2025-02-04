@@ -1,7 +1,7 @@
 const sumUpDays = () => {
   const cells = [
     ...document.querySelectorAll(
-      "tamin-data-grid table > tbody > tr > td:nth-child(n + 7)"
+      "tamin-data-grid table > tbody > tr > td:nth-child(n + 7)",
     ),
   ];
 

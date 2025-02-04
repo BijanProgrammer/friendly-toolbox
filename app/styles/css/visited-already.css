@@ -21,7 +21,7 @@
   *,
 .project-list-item a:visited,
 .project-list-item a:visited * {
-  color: #ff8066 !important;
+  color: hsl(10, 100%, 70%) !important;
 }
 
 /*# sourceMappingURL=visited-already.css.map */

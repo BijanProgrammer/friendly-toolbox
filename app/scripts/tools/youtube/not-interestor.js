@@ -32,7 +32,7 @@ const youtubeNotInterestor = () => {
     if (code !== "KeyD" || !currentHoveredElement) return;
 
     const menuButton = currentHoveredElement.querySelector(
-      '[aria-label="Action menu"]'
+      '[aria-label="Action menu"]',
     );
     menuButton.click();
 
@@ -42,7 +42,7 @@ const youtubeNotInterestor = () => {
       ...document.querySelectorAll("#items > ytd-menu-service-item-renderer"),
     ];
     const notInterestedButton = menuItems.find((x) =>
-      x.textContent.toLowerCase().includes("not interested")
+      x.textContent.toLowerCase().includes("not interested"),
     );
     notInterestedButton?.click();
   });

@@ -20,7 +20,7 @@
     const observer = new MutationObserver((records) => {
       records.forEach((record) => {
         const people = [...record.addedNodes].filter((node) =>
-          node.matches?.(PERSON_SELECTOR)
+          node.matches?.(PERSON_SELECTOR),
         );
         const desiredPeople = people.filter(isPersonOfInterest);
 
