@@ -1,7 +1,8 @@
 (function () {
-  const PERSON_SELECTOR = ".discover-fluid-entity-list--item";
-  const CONNECT_BUTTON_SELECTOR =
-    'button[aria-label="Invite {:member} to connect"]';
+  const SECTION_SELECTOR =
+    '[data-view-name="cohorts-section-more-suggestions"]';
+  const PERSON_SELECTOR = `${SECTION_SELECTOR} [data-view-name="cohort-card"]`;
+  const CONNECT_BUTTON_SELECTOR = 'button[aria-label^="Invite"]';
 
   const WORDLIST = ["front", "web", "develop", "ui", "ux"];
 
