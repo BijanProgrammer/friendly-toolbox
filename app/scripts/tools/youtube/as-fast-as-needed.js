@@ -46,6 +46,7 @@
     "Chris and Jack",
     "Jäger Himself Too",
     "Jynxzi",
+    "Universal Pictures",
   ]);
 
   const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE = new Map([
