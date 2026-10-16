@@ -53,6 +53,9 @@
     ["Fireship", 1.5],
     ["Beyond Fireship", 1.5],
     ["Juxtopposed", 1.5],
+    ["ThePrimeagen", 1.5],
+    ["The PrimeTime", 1.5],
+    ["Developers Digest", 1.5],
   ]);
 
   const getVideoElement = async () => {
