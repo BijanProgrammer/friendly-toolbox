@@ -56,6 +56,7 @@
     ["ThePrimeagen", 1.5],
     ["The PrimeTime", 1.5],
     ["Developers Digest", 1.5],
+    ["The Coding Sloth", 1.5],
   ]);
 
   const getVideoElement = async () => {
