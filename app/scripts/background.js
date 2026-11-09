@@ -16,6 +16,20 @@ chrome.commands.onCommand.addListener((command) => {
   });
 });
 
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (!message?.openTabs) return;
+
+  let index = sender.tab?.index ?? 0;
+  for (const url of message.openTabs) {
+    chrome.tabs.create({
+      url,
+      active: false,
+      index: ++index,
+      openerTabId: sender.tab?.id,
+    });
+  }
+});
+
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   goDuckGo(tabId, changeInfo, tab).then();
 });
