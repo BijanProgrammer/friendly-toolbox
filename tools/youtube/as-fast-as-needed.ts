@@ -60,67 +60,137 @@ const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE = new Map([
   ["The Coding Sloth", 1.5],
 ]);
 
-const getVideoElement = () =>
-  waitForElementToExist<HTMLVideoElement>("#movie_player video");
+// Shorts show only the channel's @handle, so names are compared loosely:
+// "Beyond Fireship" matches "@beyondfireship". When a handle differs from the
+// display name, add the handle to the lists above.
+const normalize = (channelName: string) =>
+  channelName.toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
 
-const changePlaybackRate = async (playbackRate: number) => {
-  const video = await getVideoElement();
+const NORMAL_PLAYBACK_RATE_KEYS = new Set(
+  [...CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE].map(normalize),
+);
+
+const CUSTOM_PLAYBACK_RATE_KEYS = new Map(
+  [...CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE].map(([name, rate]) => [
+    normalize(name),
+    rate,
+  ]),
+);
+
+const getPlaybackRate = (channelName: string) => {
+  const key = normalize(channelName);
+  if (NORMAL_PLAYBACK_RATE_KEYS.has(key)) return 1;
+  return CUSTOM_PLAYBACK_RATE_KEYS.get(key) ?? 2;
+};
+
+type Player = { video: string; channelName: string };
+
+const WATCH_PLAYER: Player = {
+  video: "#movie_player video",
+  channelName: "ytd-video-owner-renderer #channel-name a",
+};
+
+const SHORTS_PLAYER: Player = {
+  video: "#shorts-player video",
+  channelName: "ytd-reel-video-renderer yt-reel-channel-bar-view-model a",
+};
+
+// Both players stay in the page once created, so pick by the current page.
+const getCurrentPlayer = () =>
+  location.pathname.startsWith("/shorts/") ? SHORTS_PLAYER : WATCH_PLAYER;
+
+const getPlayerOfVideo = (video: HTMLVideoElement) =>
+  video.closest("#shorts-player")
+    ? SHORTS_PLAYER
+    : video.closest("#movie_player")
+      ? WATCH_PLAYER
+      : null;
+
+const readChannelName = (player: Player) =>
+  document.querySelector(player.channelName)?.textContent?.trim() ?? "";
+
+const CHANNEL_NAME_UPDATE_TIMEOUT_MS = 1000;
+
+// A new video's src is set before its channel name is rendered, so the name
+// still belongs to the previous video. Wait for it to change; if it doesn't,
+// the new video is from the same channel.
+const waitForChannelNameChange = (player: Player, previous: string) =>
+  new Promise<string>((resolve) => {
+    const finish = () => {
+      observer.disconnect();
+      clearTimeout(timeout);
+      resolve(readChannelName(player));
+    };
+
+    const observer = new MutationObserver(() => {
+      const channelName = readChannelName(player);
+      if (channelName && channelName !== previous) finish();
+    });
+    const timeout = setTimeout(finish, CHANNEL_NAME_UPDATE_TIMEOUT_MS);
+
+    observer.observe(document.body, {
+      subtree: true,
+      childList: true,
+      characterData: true,
+    });
+  });
+
+const changePlaybackRate = (video: HTMLVideoElement, playbackRate: number) => {
   video.playbackRate = playbackRate;
 
   console.info(`Playback rate changed to ${playbackRate}`);
 };
 
-const initializePlaybackRate = async (element: HTMLElement) => {
-  const channelName = element.innerText;
-
-  if (CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE.has(channelName)) {
-    await changePlaybackRate(1);
-  } else if (CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.has(channelName)) {
-    await changePlaybackRate(
-      CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.get(channelName)!,
-    );
-  } else {
-    await changePlaybackRate(2);
-  }
-};
-
-const documentKeyUpHandler = async (e: KeyboardEvent) => {
+const documentKeyUpHandler = (e: KeyboardEvent) => {
   if (!e.ctrlKey || !(e.code in OFFSETS)) return;
 
-  const video = await getVideoElement();
+  const video = document.querySelector<HTMLVideoElement>(
+    getCurrentPlayer().video,
+  );
+  if (!video) return;
+
   const offset = OFFSETS[e.code] / (e.altKey ? 2 : 1);
   const playbackRate = Math.max(0.5, Math.min(video.playbackRate + offset, 3));
 
-  await changePlaybackRate(playbackRate);
+  changePlaybackRate(video, playbackRate);
 };
 
-const initialize = async () => {
-  document.removeEventListener("keyup", documentKeyUpHandler);
-  document.addEventListener("keyup", documentKeyUpHandler);
+const initializeCurrentVideo = async () => {
+  const player = getCurrentPlayer();
+  const video = await waitForElementToExist<HTMLVideoElement>(player.video);
+  await waitForElementToExist(player.channelName);
 
-  const channelNameElement = await waitForElementToExist<HTMLElement>(
-    "ytd-video-owner-renderer #channel-name",
+  changePlaybackRate(video, getPlaybackRate(readChannelName(player)));
+};
+
+const onVideoSourceChange = async (video: HTMLVideoElement) => {
+  const player = getPlayerOfVideo(video);
+  if (!player) return;
+
+  const channelName = await waitForChannelNameChange(
+    player,
+    readChannelName(player),
   );
-  await initializePlaybackRate(channelNameElement);
-};
-
-const reInitializeIfNeeded = async () => {
-  const observer = new MutationObserver(async (records) => {
-    for (const record of records) {
-      const target = record.target as HTMLVideoElement;
-      if (record.attributeName === "src" && !!target.src) {
-        await initialize();
-      }
-    }
-  });
-
-  const videoElement = await getVideoElement();
-  observer.observe(videoElement, { attributes: true });
+  changePlaybackRate(video, getPlaybackRate(channelName));
 };
 
 export const youtubeAsFastAsNeeded = async () => {
   if (!location.origin.includes("youtube")) return;
 
-  await initialize();
-  await reInitializeIfNeeded();
+  document.addEventListener("keyup", documentKeyUpHandler);
+
+  // Watches every player, including the Shorts one created on first visit.
+  new MutationObserver((records) => {
+    for (const { target } of records) {
+      if (target instanceof HTMLVideoElement && target.src) {
+        void onVideoSourceChange(target);
+      }
+    }
+  }).observe(document.body, {
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["src"],
+  });
+
+  await initializeCurrentVideo();
 };
