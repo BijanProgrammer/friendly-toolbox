@@ -1,15 +1,29 @@
 {
   "name": "friendly-toolbox",
+  "description": "Your very own little friendly toolbox as a chrome extension!",
   "version": "1.0.0",
-  "scripts": {},
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "compile": "tsc --noEmit",
+    "format": "prettier --write .",
+    "postinstall": "wxt prepare"
+  },
   "keywords": [
     "automation",
     "chrome extension"
   ],
   "author": "BijanProgrammer",
   "license": "MIT",
-  "description": "Your very own little friendly toolbox as a chrome extension!",
   "devDependencies": {
-    "prettier": "^3.4.2"
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.0",
+    "wxt": "^0.20.0"
   }
 }

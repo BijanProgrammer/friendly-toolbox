@@ -215,3 +215,9 @@ modules.xml
 .idea/sonarlint
 
 # End of https://www.toptal.com/developers/gitignore/api/webstorm+all,node
+
+# WXT
+.output
+.wxt
+stats.html
+web-ext.config.ts

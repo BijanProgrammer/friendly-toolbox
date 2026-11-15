@@ -1,2 +1,0 @@
-const tools = {};
-const autoActivatedTools = [];
