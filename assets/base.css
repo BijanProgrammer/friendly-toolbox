@@ -1,0 +1,64 @@
+/* VARIABLES */
+:root {
+  --base-hue: 210;
+
+  --color-primary: hsl(var(--base-hue), 45%, 30%);
+  --color-primary-opposite: hsl(0, 0%, 98%);
+
+  --color-body-background: hsl(0, 0%, 98%);
+  --color-body-foreground: hsl(0, 0%, 10%);
+
+  --color-main-background: hsl(var(--base-hue), 18%, 12%);
+  --color-main-foreground: hsl(0, 0%, 98%);
+
+  --color-footer-background: hsl(var(--base-hue), 18%, 16%);
+  --color-footer-foreground: hsl(0, 0%, 98%);
+
+  --color-scrollbar-thumb: hsl(var(--base-hue), 18%, 18%);
+  --color-scrollbar-thumb--hover: hsl(var(--base-hue), 18%, 22%);
+  --color-scrollbar-track: transparent;
+
+  --color-section-title: hsl(var(--base-hue), 18%, 90%);
+  --color-section-border: hsl(var(--base-hue), 18%, 18%);
+
+  --color-card-background: hsl(var(--base-hue), 18%, 18%);
+  --color-card-background--hover: hsl(var(--base-hue), 18%, 22%);
+  --color-card-foreground: hsl(0, 0%, 98%);
+  --color-card-title: hsl(var(--base-hue), 18%, 86%);
+  --color-card-description: hsl(var(--base-hue), 18%, 74%);
+}
+
+/* RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: sans-serif;
+  line-height: 1;
+}
+
+* {
+  &::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-scrollbar-thumb);
+
+    &:hover {
+      background-color: var(--color-scrollbar-thumb--hover);
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--color-scrollbar-track);
+  }
+}
+
+ul {
+  list-style: none;
+}

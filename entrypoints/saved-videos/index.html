@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saved Videos</title>
+  </head>
+  <body>
+    <header>
+      <h1>Saved Videos</h1>
+      <div class="actions">
+        <button class="export" type="button">Export</button>
+        <button class="clear" type="button">Clear</button>
+      </div>
+    </header>
+
+    <main>
+      <p class="empty">No saved videos yet.</p>
+      <ul></ul>
+    </main>
+
+    <template id="video-template">
+      <li>
+        <a target="_blank" rel="noreferrer">
+          <img alt="" />
+          <h2></h2>
+          <p></p>
+        </a>
+      </li>
+    </template>
+
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

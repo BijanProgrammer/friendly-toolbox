@@ -1,3 +1,4 @@
+import "@/assets/base.css";
 import "./style.css";
 import { WEBSITES } from "@/tools/websites";
 
@@ -38,9 +39,12 @@ const createWebsites = () => {
       ) as DocumentFragment;
 
       const item = toolElement.querySelector("li")!;
-      item.dataset.methodName = tool.methodName;
-      item.addEventListener("click", () => {
-        void runTool(tool.methodName);
+      item.addEventListener("click", async () => {
+        if ("page" in tool) {
+          await browser.tabs.create({ url: browser.runtime.getURL(tool.page) });
+        } else {
+          await runTool(tool.methodName);
+        }
         window.close();
       });
 

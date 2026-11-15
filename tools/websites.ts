@@ -1,9 +1,13 @@
-/** Popup metadata. Implementations live in `tools/index.ts`. */
-export interface ToolInfo {
-  methodName: string;
+import type { PublicPath } from "wxt/browser";
+
+/**
+ * Popup metadata. An entry either runs a tool on the page (implementations
+ * live in `tools/index.ts`) or opens one of the extension's pages in a tab.
+ */
+export type ToolInfo = {
   title: string;
   description: string;
-}
+} & ({ methodName: string } | { page: PublicPath });
 
 export interface Website {
   title: string;
@@ -83,6 +87,17 @@ export const WEBSITES: Website[] = [
         title: "Sorry But Not Sorry",
         description:
           "When google show you the sorry page, you can use this tool to navigate to the video's url.",
+      },
+      {
+        methodName: "youtubeSaver",
+        title: "Saver",
+        description:
+          "Turns save mode on or off. While on, clicking a video card saves it instead of opening it.",
+      },
+      {
+        page: "/saved-videos.html",
+        title: "Saved Videos",
+        description: "Lists the saved videos, to export or clear them.",
       },
     ],
   },

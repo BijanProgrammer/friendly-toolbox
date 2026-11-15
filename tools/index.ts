@@ -10,6 +10,7 @@ import { wikipediaGiveMeTheNames } from "./wikipedia/give-me-the-names";
 import { youtubeAsFastAsNeeded } from "./youtube/as-fast-as-needed";
 import { youtubeNotInterestor } from "./youtube/not-interestor";
 import { youtubeSorryButNotSorry } from "./youtube/sorry-but-not-sorry";
+import { youtubeSaver } from "./youtube/saver";
 import { telewebionAsFastAsNeeded } from "./telewebion/as-fast-as-needed";
 
 type Tool = () => void | Promise<void>;
@@ -25,6 +26,7 @@ export const tools: Record<string, Tool> = {
   wikipediaGiveMeTheNames,
   youtubeNotInterestor,
   youtubeSorryButNotSorry,
+  youtubeSaver,
 };
 
 /** Tools that start on their own when a page loads. */

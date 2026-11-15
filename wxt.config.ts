@@ -5,7 +5,7 @@ export default defineConfig({
   manifestVersion: 3,
   manifest: ({ browser }) => ({
     name: "Friendly Toolbox",
-    permissions: ["activeTab", "tabs", "scripting"],
+    permissions: ["activeTab", "tabs", "scripting", "storage"],
     host_permissions: ["*://*.google.com/*"],
     commands: {
       "run-generalCopyThat": {
