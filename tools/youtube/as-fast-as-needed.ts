@@ -5,83 +5,76 @@ const OFFSETS: Record<string, number> = {
   ArrowDown: -1,
 };
 
-const TEASER_TRAILER_CHANNELS = new Set([
-  "A24",
-  "20th Century Studios",
-  "Warner Bros. Pictures",
-  "Lionsgate Movies",
-  "Sony Pictures Entertainment",
-  "Apple TV",
-  "Paramount Movies",
-  "Prime Video",
-  "Disney Plus",
-  "Netflix",
-  "Rotten Tomatoes Trailers",
-  "Rotten Tomatoes Indie",
-  "Rotten Tomatoes Classic Trailers",
-  "ONE Media Coverage",
-  "Amazon MGM Studios",
-  "SearchlightPictures",
-  "STXfilms",
-  "MUBI",
-  "Movie Trailers Source",
-  "Screen Media Films",
-]);
+// Each channel is listed by its display name (shown on watch pages) and its
+// @handle (the only name Shorts show). Both are matched exactly.
+type Channel = [name: string, handle: string];
 
-const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE = new Set([
+const TEASER_TRAILER_CHANNELS: Channel[] = [
+  ["A24", "@A24"],
+  ["20th Century Studios", "@20thCenturyStudios"],
+  ["Warner Bros.", "@WarnerBros"],
+  ["Lionsgate Movies", "@LionsgateMovies"],
+  ["Sony Pictures Entertainment", "@sonypictures"],
+  ["Apple TV", "@AppleTV"],
+  ["Paramount Movies", "@paramountmovies"],
+  ["Prime Video", "@PrimeVideo"],
+  ["Disney Plus", "@disneyplus"],
+  ["Netflix", "@Netflix"],
+  ["Rotten Tomatoes Trailers", "@RottenTomatoesTRAILERS"],
+  ["Rotten Tomatoes Indie", "@RottenTomatoesINDIE"],
+  ["Rotten Tomatoes Classic Trailers", "@RottenTomatoesCLASSICTRAILERS"],
+  ["ONE Media Coverage", "@OneMediaCoverage"],
+  ["Amazon MGM Studios", "@AmazonMGMStudios"],
+  ["SearchlightPictures", "@searchlightpictures"],
+  ["STXfilms", "@STXFilms"],
+  ["MUBI", "@mubi"],
+  ["Movie Trailers Source", "@MovieTrailersSourceHD"],
+  ["Screen Media Films", "@ScreenMediaFilms"],
+];
+
+const CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE: Channel[] = [
   ...TEASER_TRAILER_CHANNELS,
-  "Viva La Dirt League",
-  "Let's Game It Out",
-  "Basically Homeless",
-  "12th Hour",
-  "Hyperplexed",
-  "CarbotAnimations",
-  "SooriLand",
-  "CircleToonsHD",
-  "CinemaStix",
-  "Comedy Central",
-  "Comedy Central Stand-Up",
-  "Don't Tell Comedy",
-  "Vsauce",
-  "AfroSenju XL",
-  "Chris and Jack",
-  "Jäger Himself Too",
-  "Jynxzi",
-  "Universal Pictures",
+  ["Viva La Dirt League", "@VivaLaDirtLeague"],
+  ["Let's Game It Out", "@LetsGameItOut"],
+  ["Basically Homeless", "@BasicallyHomeless"],
+  ["12th Hour", "@12th"],
+  ["Hyperplexed", "@Hyperplexed"],
+  ["CarbotAnimations", "@CarbotAnimations"],
+  ["SooriLand", "@SooriLand"],
+  ["CircleToonsHD", "@CircleToonsHD"],
+  ["CinemaStix", "@CinemaStix"],
+  ["Comedy Central", "@ComedyCentral"],
+  ["Comedy Central Stand-Up", "@standup"],
+  ["Don't Tell Comedy", "@DontTellComedy"],
+  ["Vsauce", "@Vsauce"],
+  ["AfroSenju XL", "@AfroSenju"],
+  ["Chris and Jack", "@ChrisandJack"],
+  ["Jäger Himself Too", "@JägerHimselfToo"],
+  ["Jynxzi", "@Jynxzi"],
+  ["Universal Pictures", "@UniversalPictures"],
+];
+
+const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE: [Channel, number][] = [
+  [["Fireship", "@Fireship"], 1.5],
+  [["Beyond Fireship", "@beyondfireship"], 1.5],
+  [["Juxtopposed", "@juxtopposed"], 1.5],
+  [["ThePrimeagen", "@ThePrimeagen"], 1.5],
+  [["The PrimeTime", "@ThePrimeTimeagen"], 1.5],
+  [["Developers Digest", "@DevelopersDigest"], 1.5],
+  [["The Coding Sloth", "@TheCodingSloth"], 1.5],
+];
+
+const PLAYBACK_RATES = new Map<string, number>([
+  ...CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE.flatMap((channel) =>
+    channel.map((key) => [key, 1] as const),
+  ),
+  ...CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE.flatMap(([channel, rate]) =>
+    channel.map((key) => [key, rate] as const),
+  ),
 ]);
 
-const CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE = new Map([
-  ["Fireship", 1.5],
-  ["Beyond Fireship", 1.5],
-  ["Juxtopposed", 1.5],
-  ["ThePrimeagen", 1.5],
-  ["The PrimeTime", 1.5],
-  ["Developers Digest", 1.5],
-  ["The Coding Sloth", 1.5],
-]);
-
-// Shorts show only the channel's @handle, so names are compared loosely:
-// "Beyond Fireship" matches "@beyondfireship". When a handle differs from the
-// display name, add the handle to the lists above.
-const normalize = (channelName: string) =>
-  channelName.toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
-
-const NORMAL_PLAYBACK_RATE_KEYS = new Set(
-  [...CHANNELS_THAT_SHOULD_HAVE_NORMAL_PLAYBACK_RATE].map(normalize),
-);
-
-const CUSTOM_PLAYBACK_RATE_KEYS = new Map(
-  [...CHANNELS_THAT_SHOULD_HAVE_CUSTOM_PLAYBACK_RATE].map(([name, rate]) => [
-    normalize(name),
-    rate,
-  ]),
-);
-
-const getPlaybackRate = (channelName: string) => {
-  const key = normalize(channelName);
-  if (NORMAL_PLAYBACK_RATE_KEYS.has(key)) return 1;
-  return CUSTOM_PLAYBACK_RATE_KEYS.get(key) ?? 2;
-};
+const getPlaybackRate = (channelName: string) =>
+  PLAYBACK_RATES.get(channelName) ?? 2;
 
 type Player = { video: string; channelName: string };
 
