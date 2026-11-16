@@ -73,19 +73,29 @@ const PLAYBACK_RATES = new Map<string, number>([
   ),
 ]);
 
-const getPlaybackRate = (channelName: string) =>
-  PLAYBACK_RATES.get(channelName) ?? 2;
+// Titles containing any of these whole words always play at normal speed.
+const NORMAL_PLAYBACK_RATE_TITLE =
+  /\b(trailers?|teasers?|promos?|sneak peeks?)\b/i;
 
-type Player = { video: string; channelName: string };
+type VideoInfo = { channelName: string; title: string };
+
+const getPlaybackRate = ({ channelName, title }: VideoInfo) =>
+  NORMAL_PLAYBACK_RATE_TITLE.test(title)
+    ? 1
+    : (PLAYBACK_RATES.get(channelName) ?? 2);
+
+type Player = { video: string; channelName: string; title: string };
 
 const WATCH_PLAYER: Player = {
   video: "#movie_player video",
   channelName: "ytd-video-owner-renderer #channel-name a",
+  title: "ytd-watch-metadata h1",
 };
 
 const SHORTS_PLAYER: Player = {
   video: "#shorts-player video",
   channelName: "ytd-reel-video-renderer yt-reel-channel-bar-view-model a",
+  title: "ytd-reel-video-renderer yt-shorts-video-title-view-model h1",
 };
 
 // Both players stay in the page once created, so pick by the current page.
@@ -99,27 +109,39 @@ const getPlayerOfVideo = (video: HTMLVideoElement) =>
       ? WATCH_PLAYER
       : null;
 
-const readChannelName = (player: Player) =>
-  document.querySelector(player.channelName)?.textContent?.trim() ?? "";
+const readText = (selector: string) =>
+  document.querySelector(selector)?.textContent?.trim() ?? "";
 
-const CHANNEL_NAME_UPDATE_TIMEOUT_MS = 1000;
+const readVideoInfo = (player: Player): VideoInfo => ({
+  channelName: readText(player.channelName),
+  title: readText(player.title),
+});
 
-// A new video's src is set before its channel name is rendered, so the name
-// still belongs to the previous video. Wait for it to change; if it doesn't,
-// the new video is from the same channel.
-const waitForChannelNameChange = (player: Player, previous: string) =>
-  new Promise<string>((resolve) => {
+const VIDEO_INFO_UPDATE_TIMEOUT_MS = 1000;
+
+// A new video's src is set before its info is rendered, so the info still
+// belongs to the previous video. Wait for both to change; if one doesn't, the
+// new video shares it (e.g. same channel) and the timeout ends the wait.
+const waitForVideoInfoChange = (player: Player, previous: VideoInfo) =>
+  new Promise<VideoInfo>((resolve) => {
     const finish = () => {
       observer.disconnect();
       clearTimeout(timeout);
-      resolve(readChannelName(player));
+      resolve(readVideoInfo(player));
     };
 
     const observer = new MutationObserver(() => {
-      const channelName = readChannelName(player);
-      if (channelName && channelName !== previous) finish();
+      const { channelName, title } = readVideoInfo(player);
+      if (
+        channelName &&
+        title &&
+        channelName !== previous.channelName &&
+        title !== previous.title
+      ) {
+        finish();
+      }
     });
-    const timeout = setTimeout(finish, CHANNEL_NAME_UPDATE_TIMEOUT_MS);
+    const timeout = setTimeout(finish, VIDEO_INFO_UPDATE_TIMEOUT_MS);
 
     observer.observe(document.body, {
       subtree: true,
@@ -152,19 +174,17 @@ const initializeCurrentVideo = async () => {
   const player = getCurrentPlayer();
   const video = await waitForElementToExist<HTMLVideoElement>(player.video);
   await waitForElementToExist(player.channelName);
+  await waitForElementToExist(player.title);
 
-  changePlaybackRate(video, getPlaybackRate(readChannelName(player)));
+  changePlaybackRate(video, getPlaybackRate(readVideoInfo(player)));
 };
 
 const onVideoSourceChange = async (video: HTMLVideoElement) => {
   const player = getPlayerOfVideo(video);
   if (!player) return;
 
-  const channelName = await waitForChannelNameChange(
-    player,
-    readChannelName(player),
-  );
-  changePlaybackRate(video, getPlaybackRate(channelName));
+  const videoInfo = await waitForVideoInfoChange(player, readVideoInfo(player));
+  changePlaybackRate(video, getPlaybackRate(videoInfo));
 };
 
 export const youtubeAsFastAsNeeded = async () => {
